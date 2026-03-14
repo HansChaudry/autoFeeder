@@ -10,7 +10,7 @@ import requests
 
 
 camera = cameraHandler()
-led_pins = [19, 21, 23, 29]
+led_pins = [5, 7]
 GPIO.setmode(GPIO.BOARD)
 
 def initiate_pins():
@@ -50,23 +50,24 @@ def message_handling(client, userdata, msg):
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to broker!")
-        GPIO.output(19, True)
+        GPIO.output(led_pins[1], True)
     else:
         print("Failed to connect to broker!")
 
 
 def on_disconnect(client, userdata, rc):
     print("Disconnected from broker!")
-    GPIO.output(19, False)
+    GPIO.output(led_pins[1], False)
 
 
 def internet_connection():
     try:
         response = requests.get("https://www.github.com", timeout=5)
-        GPIO.output(21, True)
+        GPIO.output(led_pins[0], True)
         return True
     except requests.ConnectionError:
         print("No network connection. Trying again in 6 seconds...")
+        GPIO.output(led_pins[0], False)
         return False
 
 
@@ -77,9 +78,9 @@ def main():
     initiate_pins()
 
     while not internet_connection():
-        GPIO.output(19, True)
+        GPIO.output(led_pins[0], True)
         time.sleep(0.5)
-        GPIO.output(19, False)
+        GPIO.output(led_pins[0], False)
         time.sleep(0.5)
 
     client = paho.Client()
@@ -109,13 +110,11 @@ def main():
                 time.sleep(1)
         except:
             print("Exiting...")
-            camera.cleanUp()
-            cleanUp_pins()
             if client is not None:
                 client.loop_stop()
                 client.disconnect()
-            GPIO.cleanup()
-
+            camera.cleanUp()
+            cleanUp_pins()
 
 
 if __name__ == "__main__":

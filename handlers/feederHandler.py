@@ -3,7 +3,7 @@ import time
 from handlers.cameraHandler import cameraHandler
 
 class feederHandler:
-    CONTROL_PINS = [7, 11, 13, 15]
+    CONTROL_PINS = [31, 29, 23, 21]
 
     @staticmethod
     def setup():
