@@ -47,6 +47,9 @@ class feederHandler:
                         bool(halfstep_seq[halfstep][pin])
                     )
                 time.sleep(0.001)
+        
+        for pin in feederHandler.CONTROL_PINS:
+            GPIO.output(pin, 0)
 
 
 

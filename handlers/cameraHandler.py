@@ -12,28 +12,28 @@ class Processes:
 class cameraHandler:
     stream_cmd = [
         "bash", "-c",
-        """
+        f"""
         rpicam-vid -t 0 --width 1280 --height 720 --framerate 30 \
         --codec h264 --profile baseline --inline -o - |
         ffmpeg -fflags nobuffer -flags low_delay -f h264 -i - \
         -c copy -rtsp_transport tcp -f rtsp \
-        rtsp://192.168.1.55:8554/tankCam
+        {os.getenv("streamURL")}
         """
     ]
 
     stream_recording_cmd = [
         "bash", "-c",
-        """
-        ffmpeg -rtsp_transport tcp -i rtsp://192.168.1.55:8554/tankCam \
+        f"""
+        ffmpeg -rtsp_transport tcp -i {os.getenv("streamURL")} \
         -c copy -t 10 /media/lastFeeding.mp4 -y && \
         ~/aistor-binaries/mc cp /home/clover/autoFeeder/media/lastFeeding.mp4 hansololabMinio/tank-videos/lastFeeding.mp4
         """
     ]
 
-    cameraProcesses = Processes()
+    cameraProcesses:Processes
 
     def __init__(self) -> None:
-        pass
+        self.cameraProcesses = Processes()
 
     # TODO:
     # [x] Record while streaming
@@ -53,6 +53,8 @@ class cameraHandler:
             preexec_fn=os.setsid  # creates new process group
         )
         
+        self.cameraProcesses.record.wait()
+
         if not streamWasOpen:
             self.stopStream()
 

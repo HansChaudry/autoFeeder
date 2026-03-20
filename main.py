@@ -63,11 +63,9 @@ def on_disconnect(client, userdata, rc):
 def internet_connection():
     try:
         response = requests.get("https://www.github.com", timeout=5)
-        GPIO.output(led_pins[0], True)
         return True
     except requests.ConnectionError:
         print("No network connection. Trying again in 6 seconds...")
-        GPIO.output(led_pins[0], False)
         return False
 
 
@@ -108,8 +106,11 @@ def main():
 
             while True:
                 time.sleep(1)
-        except:
+        except KeyboardInterrupt:
             print("Exiting...")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+        finally:
             if client is not None:
                 client.loop_stop()
                 client.disconnect()
