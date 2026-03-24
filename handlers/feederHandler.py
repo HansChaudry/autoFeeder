@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import os
 from handlers.cameraHandler import cameraHandler
 
 class feederHandler:
@@ -12,7 +13,7 @@ class feederHandler:
             GPIO.output(pin, 0)
 
     @staticmethod
-    def feedClover(camera:cameraHandler):
+    def feedClover(camera:cameraHandler, client):
         halfstep_seq = [
             [1,0,0,0],
             [1,1,0,0],
@@ -46,8 +47,14 @@ class feederHandler:
                     )
                 time.sleep(0.001)
         
+        if camera.cameraProcesses.record:
+            camera.cameraProcesses.record.wait()
+
         for pin in feederHandler.CONTROL_PINS:
             GPIO.output(pin, 0)
 
+        if not camera.streamWasOpen:
+            camera.stopStream()
 
-
+        client.publish(os.getenv("inTopic") + "/done", "feeding done")
+        print("Feeding done published")

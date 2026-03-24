@@ -29,17 +29,9 @@ def message_handling(client, userdata, msg):
     """Callback function for when a message is received."""
     print("Message received on topic:", msg.topic)
 
-    # # Setting up recordVideo to execute indepently
-    # recordVideoThread = threading.Thread(
-    #     daemon=True, target=camera.recordVideo, args=("testVid.mp4", 10)
-    # )
-    # recordVideoThread.start()
-
-    # # Camera start up time buffer
-    # time.sleep(2)
     if(msg.topic == str(os.getenv("inTopic"))):
         print("feeding")
-        feederHandler.feedClover(camera)
+        feederHandler.feedClover(camera, client)
     elif(msg.topic == "cloverFeeder/stream"):
         if(msg.payload.decode("utf-8") == "start"):
             camera.startStream()

@@ -12,6 +12,7 @@ class Processes:
 class cameraHandler:
     stream_cmd = []
     stream_recording_cmd = []
+    streamWasOpen = True
 
     cameraProcesses:Processes
 
@@ -20,10 +21,10 @@ class cameraHandler:
             "bash", "-c",
             f"""
             rpicam-vid -t 0 --width 1280 --height 720 --framerate 30 \
-            --codec h264 --profile baseline --inline -o - |
+            --codec h264 --profile baseline --inline --nopreview -o - 2>/dev/null |
             ffmpeg -fflags nobuffer -flags low_delay -f h264 -i - \
             -c copy -rtsp_transport tcp -f rtsp \
-            {os.getenv("streamURL")}
+            {os.getenv("streamURL")} 2>/dev/null
             """
         ]
 
@@ -31,34 +32,26 @@ class cameraHandler:
             "bash", "-c",
             f"""
             ffmpeg -rtsp_transport tcp -i {os.getenv("streamURL")} \
-            -c copy -t 10 /home/clover/autoFeeder/media/lastFeeding.mp4 -y && \
+            -c copy -t 8 /home/clover/autoFeeder/media/lastFeeding.mp4 -y  2>/dev/null&& \
             ~/aistor-binaries/mc cp /home/clover/autoFeeder/media/lastFeeding.mp4 hansololabMinio/tank-videos/lastFeeding.mp4
             """
         ]
         self.cameraProcesses = Processes()
-
-    # TODO:
-    # [x] Record while streaming
-    # [x]  Record while not streaming
+        self.streamWasOpen = True
 
     # Record Video
     def recordVideo(self):
-        streamWasOpen = True
-
         if self.cameraProcesses.stream == None:
-            streamWasOpen = False
             self.startStream()
-            time.sleep(6)
+            self.streamWasOpen = False
+            time.sleep(5)
         
         self.cameraProcesses.record = subprocess.Popen(
             self.stream_recording_cmd,
             preexec_fn=os.setsid  # creates new process group
         )
-        
-        self.cameraProcesses.record.wait()
 
-        if not streamWasOpen:
-            self.stopStream()
+        print("Recording started successfully")
 
     # Stop recording video
     def stopRecordVideo(self):
@@ -92,17 +85,22 @@ class cameraHandler:
             preexec_fn=os.setsid  # creates new process group
         )
 
+        self.streamWasOpen = True
+        print("Stream started successfully")
+
     # End stream
     def stopStream(self):
         if self.cameraProcesses.stream:
             try:
-                print(f"Stopping stream PID {self.cameraProcesses.stream.pid}")
+                print(f"Stopping stream. PID: {self.cameraProcesses.stream.pid}")
 
                 # Send SIGTERM to entire process group
                 os.killpg(os.getpgid(self.cameraProcesses.stream.pid), signal.SIGTERM)
 
                 # Give it time to exit cleanly
                 self.cameraProcesses.stream.wait(timeout=3)
+
+                print("Stream stopped successfully")
 
             except subprocess.TimeoutExpired:
                 print("Force killing process group")
