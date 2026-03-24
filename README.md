@@ -82,7 +82,7 @@ Ensure the following variables are set:
 | `PORT` | MQTT broker port |
 | `inTopic` | MQTT topic for incoming commands |
 | `streamTopic` | MQTT topic for camera stream |
-| `streamURL` | Full RTSP URL e.g. `rtsp://192.168.1.55:8554/tankCam` |
+| `streamURL` | Full RTSP URL e.g. `rtsp://host:port/tankCam` |
 
 ## 8. MinIO Client Setup
 
