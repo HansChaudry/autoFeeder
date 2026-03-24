@@ -8,7 +8,7 @@ import threading
 import RPi.GPIO as GPIO
 import requests
 
-
+load_dotenv()
 camera = cameraHandler()
 led_pins = [5, 7]
 GPIO.setmode(GPIO.BOARD)
@@ -63,14 +63,15 @@ def on_disconnect(client, userdata, rc):
 def internet_connection():
     try:
         response = requests.get("https://www.github.com", timeout=5)
+        GPIO.output(led_pins[0], True)
         return True
     except requests.ConnectionError:
         print("No network connection. Trying again in 6 seconds...")
+        GPIO.output(led_pins[0], False)
         return False
 
 
 def main():
-    load_dotenv()
     time.sleep(1)
 
     initiate_pins()
@@ -106,11 +107,8 @@ def main():
 
             while True:
                 time.sleep(1)
-        except KeyboardInterrupt:
+        except:
             print("Exiting...")
-        except Exception as e:
-            print(f"Unexpected error: {e}")
-        finally:
             if client is not None:
                 client.loop_stop()
                 client.disconnect()

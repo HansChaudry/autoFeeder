@@ -10,29 +10,31 @@ class Processes:
     record: subprocess.Popen | None = None
 
 class cameraHandler:
-    stream_cmd = [
-        "bash", "-c",
-        f"""
-        rpicam-vid -t 0 --width 1280 --height 720 --framerate 30 \
-        --codec h264 --profile baseline --inline -o - |
-        ffmpeg -fflags nobuffer -flags low_delay -f h264 -i - \
-        -c copy -rtsp_transport tcp -f rtsp \
-        {os.getenv("streamURL")}
-        """
-    ]
-
-    stream_recording_cmd = [
-        "bash", "-c",
-        f"""
-        ffmpeg -rtsp_transport tcp -i {os.getenv("streamURL")} \
-        -c copy -t 10 /media/lastFeeding.mp4 -y && \
-        ~/aistor-binaries/mc cp /home/clover/autoFeeder/media/lastFeeding.mp4 hansololabMinio/tank-videos/lastFeeding.mp4
-        """
-    ]
+    stream_cmd = []
+    stream_recording_cmd = []
 
     cameraProcesses:Processes
 
     def __init__(self) -> None:
+        self.stream_cmd = [
+            "bash", "-c",
+            f"""
+            rpicam-vid -t 0 --width 1280 --height 720 --framerate 30 \
+            --codec h264 --profile baseline --inline -o - |
+            ffmpeg -fflags nobuffer -flags low_delay -f h264 -i - \
+            -c copy -rtsp_transport tcp -f rtsp \
+            {os.getenv("streamURL")}
+            """
+        ]
+
+        self.stream_recording_cmd = [
+            "bash", "-c",
+            f"""
+            ffmpeg -rtsp_transport tcp -i {os.getenv("streamURL")} \
+            -c copy -t 10 /home/clover/autoFeeder/media/lastFeeding.mp4 -y && \
+            ~/aistor-binaries/mc cp /home/clover/autoFeeder/media/lastFeeding.mp4 hansololabMinio/tank-videos/lastFeeding.mp4
+            """
+        ]
         self.cameraProcesses = Processes()
 
     # TODO:
@@ -46,7 +48,7 @@ class cameraHandler:
         if self.cameraProcesses.stream == None:
             streamWasOpen = False
             self.startStream()
-            time.sleep(2)
+            time.sleep(6)
         
         self.cameraProcesses.record = subprocess.Popen(
             self.stream_recording_cmd,

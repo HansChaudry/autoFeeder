@@ -26,8 +26,6 @@ class feederHandler:
         
         camera.recordVideo()
 
-        time.sleep(2)
-
         for _ in range(256):
             for halfstep in range(8):
                 for pin in range(4):
@@ -37,7 +35,7 @@ class feederHandler:
                     )
                 time.sleep(0.001)
 
-        time.sleep(2)
+        time.sleep(1)
 
         for _ in range(256):
             for halfstep in range(7, -1, -1):
