@@ -23,12 +23,9 @@ autoFeeder is an automated device that not only drops food on a set schedule, bu
 
 ## Demo
 
-<div align="center" style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px">
-  <video height="480" controls>
-    <source src="media/lastFeeding.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+<video height="480" controls>
+  <source src="media/lastFeeding.mp4" type="video/mp4">
+</video>
 
 <!--TODO: Info about background skills, and skills that are not really there yet-->
 
