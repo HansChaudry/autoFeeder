@@ -2,7 +2,7 @@
 
 This is Clover
 
-<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px">
+<div align="center" style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px">
   <div style="display: flex; gap: 10px;">
     <img src="media/babyClover.png" width="300">
     <img src="media/grownClover.png" width="350">
@@ -13,7 +13,7 @@ My beloved eastern mud turtle. She was given to me as a gift by my girlfriend in
 
 autoFeeder is an automated device that not only drops food on a set schedule, but also records a video when it does and live streams a view of the tank.
 
-<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+<div align="center" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
   <img src="media/autoFeeder.gif" height="400">
   <div style="display: flex; gap: 10px;">
     <img src="media/autoFeeder1.jpeg" height="350">
