@@ -2,7 +2,30 @@
 
 ## Overview
 
-TODO!
+This is Clover
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px">
+  <div style="display: flex; gap: 10px;">
+    <img src="images/babyClover1.png" width="300">
+    <img src="images/babyClover2.png" width="350">
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <img src="images/babyClover3.png" width="300">
+    <img src="images/grownClover.png" width="350">
+  </div>
+</div>
+
+My beloved eastern mud turtle. She was given to me as a gift by my girlfriend in 2019 during our senior year of high school. Fast forward to 2026 — I've graduated college and work as a full-time software engineer, spending most of my time working from home. Since graduating I've been taking more and longer trips, and currently my mom handles feeding when I'm away. But that won't always be the case, and when that time comes I need a solution.
+
+autoFeeder is an automated device that not only drops food on a set schedule, but also records a video when it does and live streams a view of the tank.
+
+<!--TODO: Add pictures and videos of the feeder-->
+
+<!--TODO: Info about background skills, and skills that are really there yet-->
+
+<!--TODO: Add pictures and info about used resources-->
+
+<!--TODO: Add pictures and videos of the feeder-->
 
 ## 1. System Update
 
@@ -185,4 +208,5 @@ n8n (schedule)
 Client App (Expo)
     → MQTT subscribe (feed trigger)
     → HLS stream from MediaMTX
+    → Display the recording from the last feeding
 ```
