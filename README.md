@@ -4,7 +4,7 @@ This is Clover
 
 <div align="center" style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px">
   <div style="display: flex; gap: 10px;">
-    <img src="media/babyClover.png" width="300">
+    <img src="media/babyClover.png" width="350">
     <img src="media/grownClover.png" width="350">
   </div>
 </div>
