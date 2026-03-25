@@ -23,12 +23,17 @@ autoFeeder is an automated device that not only drops food on a set schedule, bu
 
 ## Demo
 
-{video demo}
-
-<!-- <video height="480" controls>
+<div align="center">
+  <img src="media/autoFeeder.gif" height="400">
+  <div style="display: flex; gap: 10px;">
+    <img src="media/autoFeeder1.jpeg" height="350">
+    <img src="media/autoFeeder2.jpeg" height="350">
+  </div>
+</div>
+<video height="480" controls>
   <source src="media/lastFeeding.mp4" type="video/mp4">
   Your browser does not support the video tag.
-</video> -->
+</video>
 
 
 <!--TODO: Info about background skills, and skills that are not really there yet-->
@@ -207,7 +212,7 @@ Feeding done published
 ## Architecture Overview
 
 ```
-n8n (schedule)
+n8n (schedule feed trigger)
     → MQTT publish → Pi Zero 2W
                         → stepper motor rotates drum → food drops
                         → rpicam-vid + ffmpeg → RTSP → MediaMTX
@@ -216,7 +221,7 @@ n8n (schedule)
                         → MQTT publish done message
                             → n8n → Discord notification
 Client App (Expo)
-    → MQTT subscribe (feed trigger)
+    → MQTT subscribe (start stream)
     → HLS stream from MediaMTX
     → Display the recording from the last feeding
 ```
