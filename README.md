@@ -1,29 +1,39 @@
-# autoFeeder — Pi Zero 2 W Setup Guide
-
-## Overview
+# autoFeeder
 
 This is Clover
 
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px">
   <div style="display: flex; gap: 10px;">
-    <img src="images/babyClover1.png" width="300">
-    <img src="images/babyClover2.png" width="350">
-  </div>
-  <div style="display: flex; gap: 10px;">
-    <img src="images/babyClover3.png" width="300">
-    <img src="images/grownClover.png" width="350">
+    <img src="media/babyClover.png" width="300">
+    <img src="media/grownClover.png" width="350">
   </div>
 </div>
 
-My beloved eastern mud turtle. She was given to me as a gift by my girlfriend in 2019 during our senior year of high school. Fast forward to 2026 — I've graduated college and work as a full-time software engineer, spending most of my time working from home. Since graduating I've been taking more and longer trips, and currently my mom handles feeding when I'm away. But that won't always be the case, and when that time comes I need a solution.
+My beloved eastern mud turtle. She was given to me as a gift by my girlfriend in 2019 during our senior year of high school. Fast forward to 2026 — I've graduated college and work as a full-time software engineer, spending most of my time working from home. Since graduating I've been taking more and longer trips, and currently my mom handles feeding when I'm away. However, that won't always be the case, and when that time comes I need a solution.
 
 autoFeeder is an automated device that not only drops food on a set schedule, but also records a video when it does and live streams a view of the tank.
 
-<!--TODO: Add pictures and videos of the feeder-->
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+  <img src="media/autoFeeder.gif" height="400">
+  <div style="display: flex; gap: 10px;">
+    <img src="media/autoFeeder1.jpeg" height="350">
+    <img src="media/autoFeeder2.jpeg" height="350">
+  </div>
+</div>
 
-<!--TODO: Info about background skills, and skills that are really there yet-->
+## Demo
 
-<!--TODO: Add pictures and info about used resources-->
+{video demo}
+
+<!-- <video height="480" controls>
+  <source src="media/lastFeeding.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video> -->
+
+
+<!--TODO: Info about background skills, and skills that are not really there yet-->
+
+<!--TODO: Info about used resources-->
 
 <!--TODO: Add pictures and videos of the feeder-->
 
